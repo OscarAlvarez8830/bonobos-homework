@@ -1,0 +1,50 @@
+/* RESET */
+div, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* MAIN APP */
+#root {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.app {
+  position: relative;
+}
+
+.hero-image {
+  height: 100vh;
+  max-height: 800px;
+  width: auto;
+}
+
+@media (min-height: 800px) {
+  #root {
+    margin-top: calc((100vh - 800px) / 2);
+  }
+}
+
+/* BUTTONS */
+.button {
+  background-color: transparent;
+  border: none;
+}
+
+.button-list {
+  position: absolute;
+  right: 10px;
+  top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.button-image {
+  height: 20px;
+}
+
+.button:focus {
+  outline: none;
+}

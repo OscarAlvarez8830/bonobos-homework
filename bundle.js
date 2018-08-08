@@ -104,13 +104,30 @@ var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/i
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _zoom_in = __webpack_require__(/*! ./buttons/zoom_in */ "./buttons/zoom_in.jsx");
+
+var _zoom_in2 = _interopRequireDefault(_zoom_in);
+
+var _zoom_out = __webpack_require__(/*! ./buttons/zoom_out */ "./buttons/zoom_out.jsx");
+
+var _zoom_out2 = _interopRequireDefault(_zoom_out);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
   return _react2.default.createElement(
     'div',
-    null,
-    'Hello World!'
+    { className: 'app' },
+    _react2.default.createElement('img', {
+      className: 'hero-image',
+      src: 'https://bonobos-prod-s3.imgix.net/products/18158/original/SHIRT_ShortSleeve_ZebraRun_JetBlack_hero1.jpg?h=7000&w=7000',
+      alt: 'short sleeve shirt jet black running zebras' }),
+    _react2.default.createElement(
+      'ul',
+      { className: 'button-list' },
+      _react2.default.createElement(_zoom_in2.default, null),
+      _react2.default.createElement(_zoom_out2.default, null)
+    )
   );
 };
 
@@ -118,6 +135,103 @@ document.addEventListener('DOMContentLoaded', function () {
   var root = document.getElementById('root');
   _reactDom2.default.render(_react2.default.createElement(App, null), root);
 });
+
+/***/ }),
+
+/***/ "./buttons/button.jsx":
+/*!****************************!*\
+  !*** ./buttons/button.jsx ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (_ref) {
+  var zoom = _ref.zoom,
+      image = _ref.image;
+
+  return _react2.default.createElement(
+    "button",
+    { className: "button", onClick: zoom },
+    _react2.default.createElement("img", { className: "button-image", src: image })
+  );
+};
+
+/***/ }),
+
+/***/ "./buttons/zoom_in.jsx":
+/*!*****************************!*\
+  !*** ./buttons/zoom_in.jsx ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _button = __webpack_require__(/*! ./button */ "./buttons/button.jsx");
+
+var _button2 = _interopRequireDefault(_button);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var zoom = function zoom() {};
+
+exports.default = function () {
+  return _react2.default.createElement(_button2.default, { zoom: zoom, image: window.assets.zoomIn });
+};
+
+/***/ }),
+
+/***/ "./buttons/zoom_out.jsx":
+/*!******************************!*\
+  !*** ./buttons/zoom_out.jsx ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _button = __webpack_require__(/*! ./button */ "./buttons/button.jsx");
+
+var _button2 = _interopRequireDefault(_button);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var zoom = function zoom() {};
+
+exports.default = function () {
+  return _react2.default.createElement(_button2.default, { zoom: zoom, image: window.assets.zoomOut });
+};
 
 /***/ }),
 
