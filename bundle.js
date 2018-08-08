@@ -96,6 +96,8 @@
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -114,22 +116,81 @@ var _zoom_out2 = _interopRequireDefault(_zoom_out);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var App = function App() {
-  return _react2.default.createElement(
-    'div',
-    { className: 'app' },
-    _react2.default.createElement('img', {
-      className: 'hero-image',
-      src: 'https://bonobos-prod-s3.imgix.net/products/18158/original/SHIRT_ShortSleeve_ZebraRun_JetBlack_hero1.jpg?h=7000&w=7000',
-      alt: 'short sleeve shirt jet black running zebras' }),
-    _react2.default.createElement(
-      'ul',
-      { className: 'button-list' },
-      _react2.default.createElement(_zoom_in2.default, null),
-      _react2.default.createElement(_zoom_out2.default, null)
-    )
-  );
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_React$Component) {
+  _inherits(App, _React$Component);
+
+  function App(props) {
+    _classCallCheck(this, App);
+
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+    _this.state = { zoomed: false };
+    _this.zoomOnClick = _this.zoomOnClick.bind(_this);
+    return _this;
+  }
+
+  _createClass(App, [{
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      window.scrollTo(this.app.width, this.app.height);
+    }
+  }, {
+    key: 'styles',
+    value: function styles() {
+      if (this.state.zoomed) {
+        return { transform: 'scale(3)', left: this.app.width, top: this.app.height };
+      } else {
+        return {};
+      }
+    }
+  }, {
+    key: 'zoom',
+    value: function zoom(level) {
+      var _this2 = this;
+
+      return function () {
+        return _this2.setState({ zoomed: level });
+      };
+    }
+  }, {
+    key: 'zoomOnClick',
+    value: function zoomOnClick() {
+      this.state.zoomed ? this.zoom(false)() : this.zoom(true)();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'app', ref: function ref(app) {
+            return _this3.app = app;
+          } },
+        _react2.default.createElement('img', {
+          style: this.styles(),
+          className: 'hero-image',
+          onClick: this.zoomOnClick,
+          src: 'https://bonobos-prod-s3.imgix.net/products/18158/original/SHIRT_ShortSleeve_ZebraRun_JetBlack_hero1.jpg?h=7000&w=7000',
+          alt: 'short sleeve shirt jet black running zebras' }),
+        _react2.default.createElement(
+          'ul',
+          { className: 'button-list' },
+          _react2.default.createElement(_zoom_in2.default, { zoom: this.zoom(true) }),
+          _react2.default.createElement(_zoom_out2.default, { zoom: this.zoom(false) })
+        )
+      );
+    }
+  }]);
+
+  return App;
+}(_react2.default.Component);
 
 document.addEventListener('DOMContentLoaded', function () {
   var root = document.getElementById('root');
@@ -195,9 +256,8 @@ var _button2 = _interopRequireDefault(_button);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var zoom = function zoom() {};
-
-exports.default = function () {
+exports.default = function (_ref) {
+  var zoom = _ref.zoom;
   return _react2.default.createElement(_button2.default, { zoom: zoom, image: window.assets.zoomIn });
 };
 
@@ -227,9 +287,8 @@ var _button2 = _interopRequireDefault(_button);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var zoom = function zoom() {};
-
-exports.default = function () {
+exports.default = function (_ref) {
+  var zoom = _ref.zoom;
   return _react2.default.createElement(_button2.default, { zoom: zoom, image: window.assets.zoomOut });
 };
 

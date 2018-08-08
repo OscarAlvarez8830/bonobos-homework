@@ -19,6 +19,7 @@ div, body {
   height: 100vh;
   max-height: 800px;
   width: auto;
+  position: relative;
 }
 
 @media (min-height: 800px) {
@@ -34,7 +35,7 @@ div, body {
 }
 
 .button-list {
-  position: absolute;
+  position: fixed;
   right: 10px;
   top: 50px;
   display: flex;
