@@ -22,6 +22,11 @@ div, body {
   position: relative;
 }
 
+.zoomed {
+  transform: scale(3);
+  -moz-transform: scale(3);
+}
+
 @media (min-height: 800px) {
   #root {
     margin-top: calc((100vh - 800px) / 2);

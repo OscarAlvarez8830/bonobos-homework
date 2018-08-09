@@ -138,13 +138,13 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'componentDidUpdate',
     value: function componentDidUpdate() {
-      window.scrollTo(this.app.width, this.app.height);
+      window.scrollTo(this.image.width * 0.75, this.image.height);
     }
   }, {
     key: 'styles',
     value: function styles() {
       if (this.state.zoomed) {
-        return { transform: 'scale(3)', left: this.app.width, top: this.app.height };
+        return { left: this.image.width * 0.75, top: this.image.height };
       } else {
         return {};
       }
@@ -168,14 +168,16 @@ var App = function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
+      var klass = this.state.zoomed ? ' zoomed' : '';
       return _react2.default.createElement(
         'div',
-        { className: 'app', ref: function ref(app) {
-            return _this3.app = app;
-          } },
+        { className: 'app' },
         _react2.default.createElement('img', {
+          ref: function ref(image) {
+            return _this3.image = image;
+          },
           style: this.styles(),
-          className: 'hero-image',
+          className: 'hero-image' + klass,
           onClick: this.zoomOnClick,
           src: 'https://bonobos-prod-s3.imgix.net/products/18158/original/SHIRT_ShortSleeve_ZebraRun_JetBlack_hero1.jpg?h=7000&w=7000',
           alt: 'short sleeve shirt jet black running zebras' }),

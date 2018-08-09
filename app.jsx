@@ -11,12 +11,12 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    window.scrollTo(this.app.width, this.app.height);
+    window.scrollTo(this.image.width * 0.75, this.image.height);
   }
 
   styles() {
     if (this.state.zoomed) {
-      return { transform: 'scale(3)', left: this.app.width, top: this.app.height };
+      return { left: this.image.width * 0.75, top: this.image.height };
     } else {
       return {};
     }
@@ -31,11 +31,13 @@ class App extends React.Component {
   }
 
   render() {
+    const klass = this.state.zoomed ? ' zoomed' : '';
     return (
-      <div className="app" ref={app => this.app = app}>
+      <div className="app">
         <img
+          ref={image => this.image = image}
           style={this.styles()}
-          className="hero-image"
+          className={`hero-image${klass}`}
           onClick={this.zoomOnClick}
           src="https://bonobos-prod-s3.imgix.net/products/18158/original/SHIRT_ShortSleeve_ZebraRun_JetBlack_hero1.jpg?h=7000&w=7000"
           alt="short sleeve shirt jet black running zebras" />
