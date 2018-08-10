@@ -138,13 +138,13 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'componentDidUpdate',
     value: function componentDidUpdate() {
-      window.scrollTo(this.image.width * 0.75, this.image.height);
+      this.app.scrollTo(this.image.width, this.image.height);
     }
   }, {
     key: 'styles',
     value: function styles() {
       if (this.state.zoomed) {
-        return { left: this.image.width * 0.75, top: this.image.height };
+        return { left: this.image.width, top: this.image.height };
       } else {
         return {};
       }
@@ -171,7 +171,9 @@ var App = function (_React$Component) {
       var klass = this.state.zoomed ? ' zoomed' : '';
       return _react2.default.createElement(
         'div',
-        { className: 'app' },
+        { className: 'app', ref: function ref(app) {
+            return _this3.app = app;
+          } },
         _react2.default.createElement('img', {
           ref: function ref(image) {
             return _this3.image = image;

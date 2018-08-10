@@ -13,11 +13,12 @@ div, body {
 
 .app {
   position: relative;
+  overflow: scroll;
 }
 
 .hero-image {
-  height: 100vh;
   max-height: 800px;
+  max-width: 100vw;
   width: auto;
   position: relative;
 }
@@ -25,6 +26,7 @@ div, body {
 .zoomed {
   transform: scale(3);
   -moz-transform: scale(3);
+  -ms-transform: scale(3);
 }
 
 @media (min-height: 800px) {

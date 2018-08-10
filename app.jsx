@@ -11,12 +11,12 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    window.scrollTo(this.image.width * 0.75, this.image.height);
+    this.app.scrollTo(this.image.width, this.image.height);
   }
 
   styles() {
     if (this.state.zoomed) {
-      return { left: this.image.width * 0.75, top: this.image.height };
+      return { left: this.image.width, top: this.image.height };
     } else {
       return {};
     }
@@ -33,7 +33,7 @@ class App extends React.Component {
   render() {
     const klass = this.state.zoomed ? ' zoomed' : '';
     return (
-      <div className="app">
+      <div className="app" ref={app => this.app = app}>
         <img
           ref={image => this.image = image}
           style={this.styles()}
