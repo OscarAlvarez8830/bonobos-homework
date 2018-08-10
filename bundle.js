@@ -131,7 +131,13 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = { zoomed: false };
+
+    _this.handleDrag = _this.handleDrag.bind(_this);
+    _this.handleDragStart = _this.handleDragStart.bind(_this);
     _this.zoomOnClick = _this.zoomOnClick.bind(_this);
+
+    _this.dragImage = new Image(0, 0);
+    _this.dragImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
     return _this;
   }
 
@@ -149,6 +155,32 @@ var App = function (_React$Component) {
       } else {
         return {};
       }
+    }
+  }, {
+    key: 'handleDrag',
+    value: function handleDrag(e) {
+      var clientX = e.clientX,
+          clientY = e.clientY;
+
+      if (clientX > this.image.width || clientX <= 0) return;
+      if (clientY > this.image.height || clientY <= 0) return;
+
+      var diffX = clientX - this.coords.clientX;
+      var diffY = clientY - this.coords.clientY;
+
+      this.app.scrollLeft = this.app.scrollLeft - diffX;
+      this.app.scrollTop = this.app.scrollTop - diffY;
+      this.coords = { clientX: clientX, clientY: clientY };
+    }
+  }, {
+    key: 'handleDragStart',
+    value: function handleDragStart(e) {
+      if (!this.state.zoomed) return;
+      e.dataTransfer.setDragImage(this.dragImage, 0, 0);
+      var clientX = e.clientX,
+          clientY = e.clientY;
+
+      this.coords = { clientX: clientX, clientY: clientY };
     }
   }, {
     key: 'zoom',
@@ -186,6 +218,9 @@ var App = function (_React$Component) {
             style: this.styles(),
             className: 'hero-image' + klass,
             onClick: this.zoomOnClick,
+            draggable: true,
+            onDrag: this.handleDrag,
+            onDragStart: this.handleDragStart,
             src: 'https://bonobos-prod-s3.imgix.net/products/18158/original/SHIRT_ShortSleeve_ZebraRun_JetBlack_hero1.jpg?h=7000&w=7000',
             alt: 'short sleeve shirt jet black running zebras' }),
           _react2.default.createElement(
