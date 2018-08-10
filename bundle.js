@@ -130,10 +130,11 @@ var App = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-    _this.state = { zoomed: false };
+    _this.state = { zoomed: false, zoomable: true };
 
     _this.handleDrag = _this.handleDrag.bind(_this);
     _this.handleDragStart = _this.handleDragStart.bind(_this);
+    _this.handleDragEnd = _this.handleDragEnd.bind(_this);
     _this.zoomOnClick = _this.zoomOnClick.bind(_this);
 
     _this.dragImage = new Image(0, 0);
@@ -143,9 +144,11 @@ var App = function (_React$Component) {
 
   _createClass(App, [{
     key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
-      this.app.scrollTop = this.image.height;
-      this.app.scrollLeft = this.image.width;
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (this.state.zoomed && !prevState.zoomed) {
+        this.app.scrollTop = this.image.height;
+        this.app.scrollLeft = this.image.width;
+      }
     }
   }, {
     key: 'styles',
@@ -155,6 +158,11 @@ var App = function (_React$Component) {
       } else {
         return {};
       }
+    }
+  }, {
+    key: 'handleDragEnd',
+    value: function handleDragEnd(e) {
+      this.setState({ zoomable: true });
     }
   }, {
     key: 'handleDrag',
@@ -176,11 +184,13 @@ var App = function (_React$Component) {
     key: 'handleDragStart',
     value: function handleDragStart(e) {
       if (!this.state.zoomed) return;
+      e.dataTransfer.setData('text/html', '');
       e.dataTransfer.setDragImage(this.dragImage, 0, 0);
       var clientX = e.clientX,
           clientY = e.clientY;
 
       this.coords = { clientX: clientX, clientY: clientY };
+      this.setState({ zoomable: false });
     }
   }, {
     key: 'zoom',
@@ -193,8 +203,13 @@ var App = function (_React$Component) {
     }
   }, {
     key: 'zoomOnClick',
-    value: function zoomOnClick() {
-      this.state.zoomed ? this.zoom(false)() : this.zoom(true)();
+    value: function zoomOnClick(e) {
+      if (this.state.zoomable) {
+        this.state.zoomed ? this.zoom(false)() : this.zoom(true)();
+      } else {
+        this.handleDrag(e);
+        this.handleDragEnd(e);
+      }
     }
   }, {
     key: 'render',
@@ -221,6 +236,7 @@ var App = function (_React$Component) {
             draggable: true,
             onDrag: this.handleDrag,
             onDragStart: this.handleDragStart,
+            onDragEnd: this.handleDragEnd,
             src: 'https://bonobos-prod-s3.imgix.net/products/18158/original/SHIRT_ShortSleeve_ZebraRun_JetBlack_hero1.jpg?h=7000&w=7000',
             alt: 'short sleeve shirt jet black running zebras' }),
           _react2.default.createElement(

@@ -6,19 +6,22 @@ import ZoomOut from './buttons/zoom_out';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { zoomed: false };
-    
+    this.state = { zoomed: false, zoomable: true };
+
     this.handleDrag = this.handleDrag.bind(this);
     this.handleDragStart = this.handleDragStart.bind(this);
+    this.handleDragEnd = this.handleDragEnd.bind(this);
     this.zoomOnClick = this.zoomOnClick.bind(this);
 
     this.dragImage = new Image(0, 0);
     this.dragImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
   }
 
-  componentDidUpdate() {
-    this.app.scrollTop = this.image.height;
-    this.app.scrollLeft = this.image.width;
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.zoomed && !prevState.zoomed) {
+      this.app.scrollTop = this.image.height;
+      this.app.scrollLeft = this.image.width;
+    }
   }
 
   styles() {
@@ -27,6 +30,10 @@ class App extends React.Component {
     } else {
       return {};
     }
+  }
+
+  handleDragEnd(e) {
+    this.setState({ zoomable: true });
   }
 
   handleDrag(e) {
@@ -44,17 +51,24 @@ class App extends React.Component {
 
   handleDragStart(e) {
     if (!this.state.zoomed) return;
+    e.dataTransfer.setData('text/html', '');
     e.dataTransfer.setDragImage(this.dragImage, 0, 0);
     const { clientX, clientY } = e;
     this.coords = { clientX, clientY };
+    this.setState({ zoomable: false })
   }
 
   zoom(level) {
     return () => this.setState({ zoomed: level });
   }
 
-  zoomOnClick() {
-    this.state.zoomed ? this.zoom(false)() : this.zoom(true)();
+  zoomOnClick(e) {
+    if (this.state.zoomable) {
+      this.state.zoomed ? this.zoom(false)() : this.zoom(true)();
+    } else {
+      this.handleDrag(e);
+      this.handleDragEnd(e);
+    }
   }
 
   render() {
@@ -71,6 +85,7 @@ class App extends React.Component {
             draggable
             onDrag={this.handleDrag}
             onDragStart={this.handleDragStart}
+            onDragEnd={this.handleDragEnd}
             src="https://bonobos-prod-s3.imgix.net/products/18158/original/SHIRT_ShortSleeve_ZebraRun_JetBlack_hero1.jpg?h=7000&w=7000"
             alt="short sleeve shirt jet black running zebras" />
           <ul className="button-list">
