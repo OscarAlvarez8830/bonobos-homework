@@ -169,25 +169,30 @@ var App = function (_React$Component) {
       var _this3 = this;
 
       var klass = this.state.zoomed ? ' zoomed' : '';
+
       return _react2.default.createElement(
-        'div',
-        { className: 'app', ref: function ref(app) {
-            return _this3.app = app;
-          } },
-        _react2.default.createElement('img', {
-          ref: function ref(image) {
-            return _this3.image = image;
-          },
-          style: this.styles(),
-          className: 'hero-image' + klass,
-          onClick: this.zoomOnClick,
-          src: 'https://bonobos-prod-s3.imgix.net/products/18158/original/SHIRT_ShortSleeve_ZebraRun_JetBlack_hero1.jpg?h=7000&w=7000',
-          alt: 'short sleeve shirt jet black running zebras' }),
+        'main',
+        { className: 'container' },
         _react2.default.createElement(
-          'ul',
-          { className: 'button-list' },
-          _react2.default.createElement(_zoom_in2.default, { zoom: this.zoom(true) }),
-          _react2.default.createElement(_zoom_out2.default, { zoom: this.zoom(false) })
+          'div',
+          { className: 'app', ref: function ref(app) {
+              return _this3.app = app;
+            } },
+          _react2.default.createElement('img', {
+            ref: function ref(image) {
+              return _this3.image = image;
+            },
+            style: this.styles(),
+            className: 'hero-image' + klass,
+            onClick: this.zoomOnClick,
+            src: 'https://bonobos-prod-s3.imgix.net/products/18158/original/SHIRT_ShortSleeve_ZebraRun_JetBlack_hero1.jpg?h=7000&w=7000',
+            alt: 'short sleeve shirt jet black running zebras' }),
+          _react2.default.createElement(
+            'ul',
+            { className: 'button-list' },
+            _react2.default.createElement(_zoom_in2.default, { zoom: this.zoom(true) }),
+            _react2.default.createElement(_zoom_out2.default, { zoom: this.zoom(false) })
+          )
         )
       );
     }

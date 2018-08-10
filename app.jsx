@@ -32,20 +32,23 @@ class App extends React.Component {
 
   render() {
     const klass = this.state.zoomed ? ' zoomed' : '';
+
     return (
-      <div className="app" ref={app => this.app = app}>
-        <img
-          ref={image => this.image = image}
-          style={this.styles()}
-          className={`hero-image${klass}`}
-          onClick={this.zoomOnClick}
-          src="https://bonobos-prod-s3.imgix.net/products/18158/original/SHIRT_ShortSleeve_ZebraRun_JetBlack_hero1.jpg?h=7000&w=7000"
-          alt="short sleeve shirt jet black running zebras" />
-        <ul className="button-list">
-          <ZoomIn zoom={this.zoom(true)}/>
-          <ZoomOut zoom={this.zoom(false)}/>
-        </ul>
-      </div>
+      <main className="container">
+        <div className="app" ref={app => this.app = app}>
+          <img
+            ref={image => this.image = image}
+            style={this.styles()}
+            className={`hero-image${klass}`}
+            onClick={this.zoomOnClick}
+            src="https://bonobos-prod-s3.imgix.net/products/18158/original/SHIRT_ShortSleeve_ZebraRun_JetBlack_hero1.jpg?h=7000&w=7000"
+            alt="short sleeve shirt jet black running zebras" />
+          <ul className="button-list">
+            <ZoomIn zoom={this.zoom(true)}/>
+            <ZoomOut zoom={this.zoom(false)}/>
+          </ul>
+        </div>
+      </main>
     );
   }
 }

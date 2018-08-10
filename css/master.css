@@ -12,7 +12,6 @@ div, body {
 }
 
 .app {
-  position: relative;
   overflow: scroll;
 }
 
@@ -42,17 +41,21 @@ div, body {
 }
 
 .button-list {
-  position: fixed;
-  right: 10px;
-  top: 50px;
+  position: absolute;
+  right: 5%;
+  top: 5%;
   display: flex;
   flex-direction: column;
 }
 
 .button-image {
-  height: 20px;
+  height: 25px;
 }
 
 .button:focus {
   outline: none;
+}
+
+.container {
+  position: relative;
 }
