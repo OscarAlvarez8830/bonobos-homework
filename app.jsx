@@ -11,7 +11,8 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    this.app.scrollTo(this.image.width, this.image.height);
+    this.app.scrollTop = this.image.height;
+    this.app.scrollLeft = this.image.width;
   }
 
   styles() {

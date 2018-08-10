@@ -138,7 +138,8 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'componentDidUpdate',
     value: function componentDidUpdate() {
-      this.app.scrollTo(this.image.width, this.image.height);
+      this.app.scrollTop = this.image.height;
+      this.app.scrollLeft = this.image.width;
     }
   }, {
     key: 'styles',
