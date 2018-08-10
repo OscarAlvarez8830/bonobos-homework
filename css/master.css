@@ -13,6 +13,7 @@ div, body {
 
 .app {
   overflow: scroll;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 .hero-image {
